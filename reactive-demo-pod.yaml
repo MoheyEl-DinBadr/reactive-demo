@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: reactive-demo
+  labels:
+    app: reactive-demo
+spec:
+  containers:
+    - name: reactive-demo
+      image: moheyeldinbadr/reactive-demo
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8080
+  restartPolicy: Always

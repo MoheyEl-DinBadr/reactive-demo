@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  demo-rest:
+    build:
+      dockerfile: Dockerfile.jvm
+    ports:
+      - "8080:8080"
+    mem_limit: 400m
+    environment:
+      SPRING_DATA_MONGODB_PASSWORD: example
+      SPRING_DATA_MONGODB_USERNAME: root
+      SPRING_DATA_MONGODB_DATABASE: test
+      SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: admin
+      SPRING_DATA_MONGODB_HOST: mongodb
+
+  mongo:
+    image: mongo
+    hostname: mongodb
+    mem_limit: 300m
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      retryWrites: false
+    ports:
+      - "27017:27017"

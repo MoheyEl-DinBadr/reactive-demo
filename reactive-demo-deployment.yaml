@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactive-demo
+  labels:
+    app: reactive-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reactive-demo
+  template:
+    metadata:
+      name: reactive-demo
+      labels:
+        app: reactive-demo
+    spec:
+      volumes:
+        - name: configs
+          configMap:
+            name: reactive-demo
+      containers:
+        - name: reactive-demo
+          image: moheyeldinbadr/reactive-demo
+          imagePullPolicy: Always
+#          volumeMounts:
+#            - mountPath: "/"
+#              name: configs
+          envFrom:
+            - configMapRef:
+                name: reactive-demo
+#          env:
+#            - name: SPRING_DATA_MONGODB_PASSWORD
+#              value: example
+#            - name: SPRING_DATA_MONGODB_USERNAME
+#              value: root
+#            - name: SPRING_DATA_MONGODB_DATABASE
+#              value: test
+#            - name: SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE
+#              value: admin
+#            - name: SPRING_DATA_MONGODB_HOST
+#              value: mongodb
+      restartPolicy: Always
+      
